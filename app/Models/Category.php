@@ -9,4 +9,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use HasFactory,SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name_en',
+        'name_ar',
+        'active',
+    ];
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

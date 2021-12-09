@@ -17,7 +17,7 @@ class SellerSeeder extends Seeder
     {
         DB::table('sellers')->truncate();
         Seller::create([
-            'full_name' => 'TestSeller1',
+            'name' => 'TestSeller1',
             'email'=> 'seller@test.com',
             'phone'=> '01287676108',
             'password' => bcrypt(123456789),
