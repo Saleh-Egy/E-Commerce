@@ -22,8 +22,10 @@ class Order extends Model
         'active',
     ];
 
-    public function products()
+    public function orderProducts()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(OrderProducts::class,'order_id');
     }
+
+  
 }
