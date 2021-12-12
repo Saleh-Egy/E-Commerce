@@ -23,12 +23,12 @@ class OrderProducts extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class,'product_id');
+        return $this->belongsTo(Product::class,'product_id');
     }
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class,'order_id');
+        return $this->belongsTo(Order::class,'order_id');
     }
     
 }

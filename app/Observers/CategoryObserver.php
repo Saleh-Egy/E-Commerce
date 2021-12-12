@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Category;
+use App\Models\Product;
+use Exception;
 
 class CategoryObserver
 {
@@ -29,6 +31,21 @@ class CategoryObserver
     }
 
     /**
+     * Handle the Category "updated" event.
+     *
+     * @param  \App\Models\Category  $category
+     * @return void
+     */
+    public function updating(Category $category)
+    {
+        $products = Product::whereCategoryId($category->id)->whereHas('orderProducts')->get();
+        if($products){
+            // throw new Exception('Can Not Be Deleted');
+            die('Can Not Be Updated');
+        }
+    }
+
+    /**
      * Handle the Category "deleted" event.
      *
      * @param  \App\Models\Category  $category
@@ -36,7 +53,22 @@ class CategoryObserver
      */
     public function deleted(Category $category)
     {
-        //
+        $products = Product::whereCategoryId($category->id)->delete();
+    }
+
+    /**
+     * Handle the Category "deleting" event.
+     *
+     * @param  \App\Models\Category  $category
+     * @return void
+     */
+    public function deleting(Category $category)
+    {
+        $products = Product::whereCategoryId($category->id)->whereHas('orderProducts')->get()->count();
+        if($products){
+            // throw new Exception('Can Not Be Deleted');
+            die('Can Not Be Deleted');
+        }
     }
 
     /**
