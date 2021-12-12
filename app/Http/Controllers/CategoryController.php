@@ -7,6 +7,21 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function update(Request $request, $id)
+    {
+        try {
+            $record = Category::findOrFail($id)->update([
+                'name_en' => $request->name_en,
+                'name_ar' => $request->name_ar,
+            ]);
+            return response()->json([
+                'message' => 'Updated Successfully',
+            ]);
+        } catch (\Throwable $th) {
+            return 'Something Went Wrong';
+        }
+    }
+
     public function destroy($id)
     {
         try {
@@ -19,15 +34,4 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(Request $request)
-    {
-        try {
-            $record = Category::findOrFail($request->id)->update($request->all());
-            return response()->json([
-                'message' => 'Updated Successfully',
-            ]);
-        } catch (\Throwable $th) {
-            return 'Something Went Wrong';
-        }
-    }
 }

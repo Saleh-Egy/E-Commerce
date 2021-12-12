@@ -27,7 +27,7 @@ class CategoryObserver
      */
     public function updated(Category $category)
     {
-        //
+        // 
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoryObserver
      */
     public function updating(Category $category)
     {
-        $products = Product::whereCategoryId($category->id)->whereHas('orderProducts')->get();
+        $products = Product::whereCategoryId($category->id)->whereHas('orderProducts')->get()->count();
         if($products){
             // throw new Exception('Can Not Be Deleted');
             die('Can Not Be Updated');
