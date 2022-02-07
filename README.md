@@ -22,3 +22,7 @@
 ## - Brand (crud)
 ## - Clients (crud)
 ## - Orders (crud)
+## - Offers 
+## - Wishlist
+## - Reviews
+## - Coupon
