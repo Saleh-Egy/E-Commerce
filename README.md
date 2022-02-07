@@ -14,4 +14,11 @@
 
 
 # Admin Dashboard
-## - Login 
+## - Login
+## - Profile
+## - Add Admin (crud)
+## - Category (crud)
+## - Product (crud)
+## - Brand (crud)
+## - Clients (crud)
+## - Orders (crud)
