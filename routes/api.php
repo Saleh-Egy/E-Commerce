@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Services\PayMob\PayMob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,3 +46,5 @@ Route::group(['prefix'=>'Orders'], function() {
     Route::delete('/{id}', [OrderController::class, 'destroy']);
     Route::put('/{id}', [OrderController::class, 'update']);
 });
+
+Route::post('makeAuthWithPayMob', [OrderController::class, 'payment']);
