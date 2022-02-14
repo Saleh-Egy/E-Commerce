@@ -17,7 +17,7 @@ class CardPayment extends PayMob implements PaymentInterface
     public function pay($response, $orderId)
     {
         return [
-            'iframeUrl' => static::BASE_URL .'/acceptance/iframes' .'/' .'317608' .'?payment_token=' .$response->token,
+            'iframeUrl' => static::BASE_URL .'/acceptance/iframes' .'/' .env('IFRAME_ID').'?payment_token=' .$response->token,
             'orderId' => $orderId
         ];
     }

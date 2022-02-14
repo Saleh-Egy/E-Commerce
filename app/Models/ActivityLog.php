@@ -24,10 +24,5 @@ class ActivityLog extends Model
     /**
      * {@inheritdoc}
      */
-    protected $fillable = [
-        'method',
-        'url',
-        'body',
-        'user_id',
-    ];
+    protected $guarded = [];
 }

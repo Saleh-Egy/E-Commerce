@@ -12,14 +12,14 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class PayMob
 {
-    /**
+        /**
      * Base url of payMob API
      *
      * @var string
      */
     const BASE_URL = 'https://accept.paymobsolutions.com/api/';
 
-    /**
+     /**
      * Available payment channels
      *
      * @const array
@@ -74,14 +74,7 @@ class PayMob
      * @var string $authKey
      */
     protected $authToken;
-
-    /**
-     * Payment Key
-     *
-     * @var string $paymentKey
-     */
-    protected $paymentKey;
-
+    
     /**
      * Make the pre requests of main action
      *
@@ -94,7 +87,7 @@ class PayMob
         $this->makeAuthWithPayMob();
     }
 
-    /**
+     /**
      * Make first step of make transaction with payMob
      *
      * @return void
@@ -113,11 +106,9 @@ class PayMob
             $body,
             $authRequest['headers']
         );
-       return  $this->authToken = $response->token;
+       $this->authToken = $response->token;
     }
-
-
-    /**
+     /**
      * Make a order
      *
      * @param array $orderData
@@ -135,7 +126,7 @@ class PayMob
             'merchant_id' => env('PAYMOB_MERCHANT_ID'),
             'amount_cents' => $orderData['amount_cents'],
             'currency' => $orderData['currency'],
-            'merchant_order_id' => $orderData['merchantOrderId'],
+            // 'merchant_order_id' => $orderData['merchantOrderId'],
             'items' => [],
         ];
 
@@ -150,7 +141,7 @@ class PayMob
         return $this->getPaymentKey($orderData);
     }
 
-    /**
+     /**
      * Get payment key
      *
      * @param array $orderData
@@ -159,12 +150,13 @@ class PayMob
     protected function getPaymentKey($orderData)
     {
         $paymentKeyGeneration = static::REQUIRED_REQUESTS['paymentKeyGeneration'];
-        $paymentChannel = $orderData['orderType'];
+        $paymentChannel = static::AVAILABLE_PAYMENTS_CHANNELS[$orderData['orderType']];
 
         $body = [
             'auth_token' => $this->authToken,
             'delivery_needed' => false,
-            'integration_id' => config('paymob.' .$paymentChannel .'_integration_id'),
+            'integration_id' => env('PAYMOB_'.$paymentChannel.'_INTEGRATION_ID'),
+            'integration_id' => '1615963',
             'amount_cents' => $orderData['amount_cents'],
             'currency' => $orderData['currency'],
             'order_id' => $orderData['orderId'],
@@ -183,7 +175,10 @@ class PayMob
         return $orderTypeClass->pay($response, $orderData['orderId']);
     }
 
-    /**
+
+
+
+      /**
      * Send Request
      *
      * @param string $url

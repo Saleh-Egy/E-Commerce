@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Exception;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
 use App\Observers\CategoryObserver;
+use App\Observers\ExceptionsObserver;
 use App\Observers\OrderObserver;
 use App\Observers\ProductObserver;
 use App\Observers\SellerObserver;
@@ -42,5 +44,6 @@ class EventServiceProvider extends ServiceProvider
         Order::observe(OrderObserver::class);
         Seller::observe(SellerObserver::class);
         Product::observe(ProductObserver::class);
+        Exception::observe(ExceptionsObserver::class);
     }
 }

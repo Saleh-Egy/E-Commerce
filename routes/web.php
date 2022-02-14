@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ExceptionFired;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/pusher', function () {
     return view('welcome');
+});
+
+
+
+Route::get('test', function () {
+    $ex = [
+        'message' => 'hello world'
+    ];
+    event(new ExceptionFired($ex));
+    return "Event has been sent!";
 });

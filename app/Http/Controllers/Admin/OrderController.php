@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Payment\PaymentBasic;
+use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Services\PayMob\PayMob;
 use Illuminate\Http\Request;
 
@@ -31,9 +32,32 @@ class OrderController extends Controller
             "state"=> "Utah"
         ]
     ];
+
+    /**
+     * Get All Records
+     */
+    public function index(Request $request)
+    {
+        try {
+            if(isset($request->filter)){
+                $records = Order::whereStatus($request->filter)->latest()->get();
+            }else{
+                $records = Order::latest()->get();
+            }
+            return response()->json([
+                'success' => true,
+                'data' => $records
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function payment()
     {
-        $pay = new PaymentBasic;
+        $pay = new PayMob;
         return $pay->makeOrder($this->orderData);
     }
+
+
 }

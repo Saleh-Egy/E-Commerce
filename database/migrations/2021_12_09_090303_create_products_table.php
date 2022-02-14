@@ -19,12 +19,17 @@ class CreateProductsTable extends Migration
             $table->string('name_ar');
             $table->float('price');
             $table->integer('quantity');
-            $table->string('slug')->nullable();
+            $table->integer('rate')->default(3);
+            $table->string('code')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('seller_id');
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('category_id')->references('id')->on('categories')
+            ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('seller_id')->references('id')->on('sellers')
+            ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

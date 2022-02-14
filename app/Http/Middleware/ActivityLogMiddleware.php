@@ -21,7 +21,9 @@ class ActivityLogMiddleware
             'method'  =>  $request->method(),
             'url'     =>  $request->path(),
             'body'    =>  $request->all(),
-            // 'user_id' =>  auth()->user()->id,
+            'user_agent' => $request->server('HTTP_USER_AGENT'),
+            'user_ip' =>$request->server('REMOTE_ADDR'),
+            'user_id' =>  auth()->user()->id ?? null,
         ]);
         return $next($request);
     }

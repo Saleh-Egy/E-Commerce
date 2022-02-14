@@ -20,6 +20,10 @@ class CreateOrderProductsTable extends Migration
             $table->float('product_price');
             $table->boolean('active')->default(1);
             $table->timestamps();
+            $table->foreign('order_id')->references('id')->on('orders')
+            ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')
+            ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

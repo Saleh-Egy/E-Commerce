@@ -15,16 +15,16 @@ class Order extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'total_amount',
-        'status',
-        'user_id',
-        'active',
-    ];
+    protected $guarded = [];
 
     public function orderProducts()
     {
         return $this->hasMany(OrderProducts::class,'order_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 
   

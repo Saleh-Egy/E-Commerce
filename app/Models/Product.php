@@ -16,16 +16,7 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name_en',
-        'name_ar',
-        'price',
-        'quantity',
-        'slug',
-        'category_id',
-        'seller_id',
-        'active',
-    ];
+    protected $guarded = [];
 
     public function category(): BelongsTo
     {
