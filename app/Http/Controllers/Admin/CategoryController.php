@@ -20,7 +20,7 @@ class CategoryController extends Controller
             $records = $this->model::latest()->get();
             return response()->json([
                 'success' => true,
-                'data' => $record
+                'data' => $records
             ]);
         } catch (\Throwable $th) {
             throw $th;
